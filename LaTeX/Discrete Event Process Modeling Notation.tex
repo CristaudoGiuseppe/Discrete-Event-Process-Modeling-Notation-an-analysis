@@ -1,0 +1,577 @@
+\documentclass{article}
+
+\usepackage{blindtext} % Package to generate dummy text throughout this template 
+
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.4} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[english]{babel} % Language hyphenation and typographical rules
+\usepackage{graphicx}% http://ctan.org/pkg/graphicx
+\usepackage{array}% http://ctan.org/pkg/array
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+\usepackage{longtable}
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+
+\usepackage{enumitem} % Customized lists
+\setlist[itemize]{noitemsep} % Make itemize lists more compact
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+\fancyhead[C]{Analysis and Comparison of Image Quality Metrics $\bullet$ 2022} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+\usepackage{titling} % Customizing the title section
+
+\usepackage{hyperref} % For hyperlinks in the PDF
+
+\graphicspath{ {images/} }
+\usepackage[section]{placeins}
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this, extends, range, static, super, constructor},
+  ndkeywordstyle=\color{purple}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{darkgray}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\setlength{\droptitle}{-4\baselineskip} % Move the title up
+
+\pretitle{\begin{center}\Large\bfseries} % Article title formatting
+\posttitle{\end{center}} % Article title closing formatting
+\title{Discrete Event Process Modeling Notation: an analysis} % Article title
+\author{%
+\textsc{Cristaudo Giuseppe} \\% Your name
+\normalsize University of Bologna, Dipartimento di Informatica – Scienza e Ingegneria \\ % Your institution
+}
+\date{\today} % Leave empty to omit a date
+\renewcommand{\maketitlehookd}{%
+\begin{abstract}
+\noindent 
+Business process management has developed into a mature discipline over the past ten years, with a well-established set of principles, methods, and tools that combine knowledge from industrial engineering, management sciences, and information technology with the aim of enhancing business processes. Discrete Event Process Modeling Notation overcomes standard tools used in BPM by blending the BPMN's intuitive flowchart modeling approach with the strict semantics offered by the Event Graphs' event scheduling arrows and the Object-Event Modeling and Simulation paradigm's event rules.
+\end{abstract}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+% Print the title
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+\lettrine[nindent=0em,lines=3]{S}ince the first industrial revolution, productivity has risen as a result of technological advancements, changes in how labor is organized, and the use of information technology. Machines (such as those powered by steam and water) entered the workplace during the first industrial revolution (1784–1870). The division of labor, mass manufacturing, and the utilization of electrical energy were the cornerstones of the second industrial revolution (1870–1969). The accessibility of computers, networks, and other IT systems propelled the third industrial revolution (1969–2015). Today, "Industry 4.0" is referred to as the fourth industrial revolution. Using a mix of embedded systems, sensors, networks, service orientation, big data, and analytics, the objective is to develop "smart" manufacturing systems. \\
+The aforementioned four industrial revolutions apply to {\em administrative procedures and services} even though they are frequently connected with factories and physical production systems.
+
+%------------------------------------------------
+
+\section{Business Process Management (BPM)}
+
+Business process management (BPM), as defined by Gartner \cite{Gartner}, employs methods to discover, model, analyze, measure, improve and optimize business strategy and processes. While it is sometimes confused with task and project management, its scope is broader than these adjacent topics. Task management focuses on individual tasks whereas BPM observes the whole end-to-end process. Project management refers to a one-time scope of work while BPM focuses specifically on processes that are repeatable. Through continuous process reengineering, organizations can streamline their overall workflows, leading to increased efficiencies and cost-savings. \\
+Indeed, BPM aims to shift a company's emphasis from functional to process orientation, aligning business processes with strategic objectives and customer demands. Although the literature on BPM is not extensive, it is possible to extrapolate the essence of BPM in:
+\begin{itemize}
+\item structured,
+\item analytical,
+\item cross-functional,
+\item a continuous improvement of processes.
+\end{itemize}
+
+With the intention of apply business process management in real cases, company relies on business process management software (BPMS). Sometimes referred to as BPM systems or suites, BPMS is a collection of different types of technologies that include the following \cite{BPMS}:
+\begin{itemize}
+\item process mining tools for the discovery, representation and analysis of the tasks that drive business processes,
+\item BPMN tools for diagramming business processes,
+\item workflow engines to automate the flow of tasks that complete a business process and support, \item business rules engines (BREs) to enable end users to change business rules without having to ask a programmer for help,
+\item simulation and testing tools for observing how processes behave without having to code first.
+\end{itemize}
+
+%------------------------------------------------
+
+\section{Business Process Modeling Notation (BPMN)}
+The purpose of this study is to describe what the DPMN is and its robust semantics. To do that, we must first discuss the limitations of the current business process diagramming standard, Business Process Modeling Notation.\\
+Business Process Modeling Notation (BPMN), also called Business Process Model and Notation, is an open standard to diagram a business process \cite{BPMN}.  Similar to a flowchart, it uses standardized visuals to illustrate the participants, alternatives, and process flow. Although the diagrams are complex, readers without a background in technology will find them easy to understand. Executives, analysts, and technical implementation staff can all use the same visual in this way to encourage group communication and comprehension. There is no direct correlation between a BPMN diagram and any specific implementation. \\
+BPMN can be thought of as a graphic programming language. In the diagram, each icon has a clear purpose and significance. Each of these icons denotes a stage or activity in the workflow. \\
+The following table includes a collection of the most crucial components of the BPMN process model \cite{Wagner}:
+
+\begin{longtable}{ | c | m{5cm} | m{5cm} | }
+    \hline
+    Visual symbol(s) & Name of element & Meaning \\ \hline
+    \begin{minipage}{.3\textwidth}
+      \includegraphics[width=\linewidth]{event}
+    \end{minipage}
+    &
+   Event
+    & 
+   "Something that 'happens' during the course of a process", affecting the process flow. "There are three types of Events, based on when they affect
+Event the flow": a Start Event is drawn as a circle with
+a thin border line, while an Intermediate Event has a double border line and an End Event has a thick border line.
+    \\  \hline
+       \begin{minipage}{.3\textwidth}
+      \includegraphics[width=\linewidth]{activity}
+    \end{minipage}
+    &
+    Activity
+    &
+    "Work that is performed within a Business Process". A Task is an atomic Activity, while
+Activity a Sub-Process is a composite Activity. A Sub-Process can be either in a collapsed or in an expanded view.
+ \\ \hline
+       \begin{minipage}{.3\textwidth}
+      \includegraphics[width=\linewidth]{gateaway}
+    \end{minipage}
+    &
+    Gateway
+    &
+    A Gateway is a node for branching or merging control flows. A Gateway with an "X" symbol denotes an Exclusive OR-Split for conditional branching, if there are 2 or more output flows, or an Exclusive OR-Join, if there are 2 or more Gateway input flows. A Gateway with a plus symbol denotes an AND-Split for parallel branching, if there are 2 or more output flows, or an AND-Join, if there are 2 or more input flows. A Gateway can have both input and output flows.
+ \\ \hline
+ \begin{minipage}{.3\textwidth}
+      \includegraphics[width=\linewidth]{sequence_flow}
+    \end{minipage}
+    &
+    Sequence Flow
+    &
+   An arrow expressing the temporal order of Sequence Events, Activities, and Gateways. A Conditional Sequence Flow arrow starts with a diamond and is annotated with a condition (in brackets).
+ \\ \hline
+ \begin{minipage}{.1\textwidth}
+      \includegraphics[width=\linewidth]{data_object}
+    \end{minipage}
+    &
+    Data Object
+    &
+   Data Objects may be associated with Events or Activities, providing a context for reading/writing data. A unidirectional dashed arrow denotes reading, while a bidirectional dashed arrow denotes reading/writing.
+ \\ \hline
+  \caption{The most important elements of a BPMN process model}
+\end{longtable}
+
+
+BPMN process diagrams can be used for making:
+
+\begin{itemize}
+\item conceptual process models (e.g. for both describing existing business processes and creating new oness),
+\item process automation models for certain process automation systems by including platform-specific technical information in the form of model annotation.
+\end{itemize}
+However the BMPN process diagram language has several semantic issues and is not expressive enough for making platform independent process design models that can be used for designing discrete event simulation models \cite{Wagner}. \\
+Wagner cites the following issues for BPMN as a business process diagram \cite{Wagner}:
+\begin{enumerate}
+\item A limited concept of "business processes" as isolated "cases", which does not allow to account for any dependency between business processes (e.g., competing for resources).
+\item Overloading/ambiguity of sequence flow arrows, which represent various kinds of connections, including resource-independent event flows and resource-dependent activity scheduling.
+\item Insufficient integration of the objects that participate in a process.
+\item Insufficient support of resource management. In particular, no other resources except (human) performers can be modeled, and the important concepts of resource cardinality constraints, parallel participation constraints, resource pools, alternative resource types and task priorities are not supported.
+\item No support of processing activities in processing networks, which are generalized queueing networks where processing objects enter a system via arrival events at an entry station and then "flow through the system" (being subject to processing activities at processing stations) before they leave the system via departure events at an exit station.
+\item No convincing formal semantics. BPMN's official execution semantics is defined in terms of an abstract Petri-Net-style "token" flow (following the predominant academic paradigm), which does not match its intuitive semantics based on event flows and resource-dependent activity scheduling.
+\end{enumerate}
+He also suggests how his Discrete Event Process Modeling Notation (DPMN) solves these issues.
+
+\section{Discrete Event Process Modeling Notation (DPMN)}
+
+DPMN is a BPMN-based diagram language for making (computational) process design models for discrete event simulation. It blends the BPMN's intuitive flowchart modeling approach with the strict semantics offered by the Event Graphs' event scheduling arrows and the Object-Event Modeling and Simulation paradigm's event rules. While DPMN employs UML Class Diagrams as its default (data, object, and event) type definition language, BPMN uses XML Schema as its default type definition language. \\ 
+A DPMN model may be formalized using an Abstract State Machine (ASM) whose state structure is specified by an object-oriented signature and whose transitions are determined by event rules reflecting causal regularities. The Discrete Event Process Modeling Notation (DPMN) extends and modifies the language of BPMN Process Diagrams for the purpose of making event rule design models and process design models, which are computationally complete process specifications that can be used for Discrete Event Simulation DES modeling \cite{Wagner}. Finally object types, event types, event rules, and activity kinds familiar to Object-Event Modeling and Simulation paradigm serve as the foundation for the development of DPMN.\\
+The following list is a summary of the key concepts that underlie the development of DPMN \cite{Wagner}:
+\begin{enumerate}
+\item Diagrams in the flowchart style offer a simple visual syntax for process modeling,
+\item Events, actions, and (conditional and parallel) branching must all be included in a flowchart language to be considered adequately expressive,
+\item Process design models must accurately and completely express the process specifications in terms of computation,
+\item There is no explicit computational (control flow) semantics for BPMN's sequence flows. The computational semantics for Sequence Flows leading to event circles is provided by the event scheduling semantics of Schruben's Event Graphs,
+\item The event rules of OEMS, which enable capturing causal regularities for describing the dynamics of a system, provide an operational (transition system) semantics for generalized forms of Event Graphs because they provide transition functions.
+\end{enumerate}
+
+\subsection{DPMN and Event Graphs}
+
+The Event Graph diagrams allow for the definition of computationally comprehensive process models for DES, and DPMN diagrams can be seen as a generalization of these diagrams. In these diagrams, circles stand in for different sorts of events. These event types may be annotated with variable assignments that reflect state changes and (potentially conditional) event scheduling arrows that connect them to other event types.\\
+Wagner, then, proposes a list of the main elements of DPMN \cite{Wagner}:
+
+\begin{enumerate}
+\item the three control flow node types:
+	\begin{enumerate}
+		\item Event types (circles),
+		\item Activity types (rounded-corner rectangles), and
+		\item Gateway types (diamonds)
+	\end{enumerate}
+\item Data Objects (rectangles),
+\item Text Annotations left brackets that are attached, via dashed connection lines, to control flow node types, Data Objects or Sequence Flows),\\
+and the following diagram arc types:
+	\begin{enumerate}
+		\item Sequence Flows (solid arrows) between control flow node types,
+		\item Data Object attachments (dashed arrows) between Event/Activity types and Data 				Objects.
+	\end{enumerate}
+DPMN adopts and adapts the syntax and semantics of BPMN in the following way:
+	\begin{enumerate}
+		\item A DPMN diagram has an underlying UML class diagram defining its (object and event) types.
+		\item DPMN Sequence Flow arrows pointing to an event circle denote event scheduling control flows (adopted from Event Graphs). They must be annotated by event attribute assignments and an occurrence time assignment for creating/scheduling a new event.
+	\end{enumerate}
+\item DPMN has three special forms of Text Annotation:
+	\begin{enumerate}
+		\item Text Annotations attached to Event circles for declaring event rule variables,
+		\item Text Annotations attached to Sequence Flow arrows for state change statements,
+		\item Text Annotations attached to Sequence Flow arrows pointing to Event circles for event attribute assignments.
+	\end{enumerate}
+\item DPMN has an extended form of Data Object visually rendered as rectangles with two compartments:
+	\begin{enumerate}
+		\item a first compartment showing an object variable name and an object type name separated by a colon, together with a binding of the object variable to a specific object;
+		\item a second compartment containing a block of state change statements (such as attribute value assignments).
+	\end{enumerate}
+\item BPMN's temporal semantics and visual syntax distinction between Start, Intermediate and End Events is dropped. A DPMN Event circle implicitly represents a start (or end) Event when it has no incoming (or outgoing) Sequence Flow arrows. It represents an intermediate Event if it has both incoming and outgoing Sequence Flow arrows.
+\item In a DPMN event rule design diagram, there is exactly one start Event circle followed by zero or more end Event circles, but there is no intermediate Event circle.
+\end{enumerate}
+
+
+
+%------------------------------------------------
+
+\section{Case Study: Online Sneaker Store}
+
+A fresh new online shop has finally opened its gates for limited edition sneaker releases. HTTP requests arrive with a random recurrence rates during a sneaker release and the current site is able to to handle only a limited number of requests at the same time. Moreover, if the site has reached its maximum capacity of visitors per time, new clients enter a queue. Clients in a queue may grow impatient and hang up the queue without placing an order.\\
+Then customers, in order to buy their dream pair of shoes, have to select the size and add them to the cart. If the requested size isn't available, customers are able to queue one more time and try a different size. Finally, if the selected sneaker is available, customers are able to complete the order. \\
+Since sneaker drops are always used as a stress test for a site, the online shop manager asked to keep track of the following key parameter indicator:
+
+\begin{itemize}
+\item Number of lost orders,
+\item Number of total checkouts,
+\item AVG. queue length,
+\item Number of lost orders for size unavailable.
+\end{itemize}
+
+\subsection{Conceptual Model}
+An online sneakers shop has resource for initial requests, size requests, size channels, checkout requests and checkout channels, where channels are the number of requests for both size and checkout that the site can handle in one time. While, take request activities are performed without any limitation, size request and checkout request activities requires respectively a size channel and a checkout channel.
+
+\subsection{Conceptual Information Model}
+The potentially relevant object types are:
+\begin{enumerate}
+\item online sneaker store,
+\item customers,
+\item orders,
+\item sneakers,
+\item requests,
+\item size requests,
+\item size channels,
+\item checkout requests,
+\item checkout channels.
+\end{enumerate}
+Potentially relevant types of events and activities are:
+\begin{enumerate}
+\item sneakers requests coming in from customers,
+\item sneaker request handling (an activity performed by the site without limitation),
+\item size request handling (performed via size channels),
+\item checkout request handling (performed via checkout channels).
+\end{enumerate}
+A particular kind of UML class diagram called Object Event (OE) class diagram can be used to visually represent object, event, and activity types together with their participation associations in a conceptual information model, as shown below.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Object_Event_class_diagram}
+    \caption{Object Event Class Diagram for Online Sneaker Shop}
+\end{figure}
+
+\FloatBarrier
+The association and annotations {\em <<rr>>} and {\em <<rp>>} denote {\em resource roles} and {\em resource pools}. For instance, the activity type handle size request has two resource roles, size request handlers and size channel. The online sneaker shop has resource pools for requests, size requests handlers, size channels, checkout requests handlers and checkout channels.\\
+Resource roles have resource cardinality constraints. For instance, an handle size request activity requires two size request handlers (one for selecting the size and one for adding it to the cart) and a size channel.
+
+\subsection{Conceptual Process Model}
+The following DPMN diagram shows a conceptual model of the Online Sneaker Shop business process, with three swimlanes for the three activities of the process. Since, at the moment of writing there is no DPMN-specific modeling tool, Microsoft Visio or draw.io can be used to draw basic or new DPMN modeling elements.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Online Shop}
+    \caption{Conceptual Model for the Online Sneaker Shop}
+\end{figure}
+
+\FloatBarrier
+
+{\em Notice how the timeout event circle (with a clock icon) is attached to the three bars of the resource-dependent activity scheduling (RDAS) arrow, representing the queue of planned taking sneakers activities waiting for the availability of a sneaker requests. This implies that the timeout applies to the waiting phase only, and not to the entire taking sneaker request activity.}
+
+A resource pool element is typically absent from a notional DPMN process diagram. On the other hand, it might show the performance roles of various activity categories, such as the sneaker request handler and size request handler in the mentioned diagram. Any organizational role defined in the mentioned OE class model is expected to have a matching resource pool within the organization under examination.
+
+\subsection{Simulation Design}
+
+The following simplifications are made in our simulation design. \\
+We only take into account one specific online sneaker drop, which is not required to be described as an explicit object, and only three possible sizes instead of a full size run. Also, we abstract away from individual customers, orders and sneakers.\\
+We consider a scenario with the online site being able to handle 4 sneaker request, 6 size request, 10 size channels and 15 checkout channels. In a future work, the default scenario may be choosen by the user.
+
+\subsection{Information Design Model}
+A design model is platform-independent model in that it excludes any modeling components made specifically for a given platform, such as Java datatypes. The objective of the solution design model is to retain only those entity types that are necessary for providing answers to the research questions. \\
+An information design model can derived from a conceptual information model by \cite{Wagner}:
+\begin{enumerate}
+\item Abstracting away from that are not design-relevant.
+\item Adding properties, function and methods to all resource object, event and activity classes. In particular, a status attribute is added to all resource object types, such as SneakerRequestHandler and SizeChannels, and a class-level duration function is added to all activity classes.
+\end{enumerate}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Information_Design_Model}
+    \caption{Information Design Model for the Online Sneaker Shop}
+\end{figure}
+
+\FloatBarrier
+
+Observe how the keyword {\em <<rv>>}, which stands for "random variable," is used to indicate functions that represent random variables, such as the duration function for all activity categories. These random variable functions draw data from a probability distribution function (PDF), which is symbolically represented by expressions such as Tri(10,30,15), which denotes a triangular PDF with lower and upper bounds of 10 and 30 and a median of 15, or DU(1,4), which denotes a discrete uniform PDF with lower and upper bounds of 1 and 4. \\
+The random variable function recurrence selects samples for the event type SneakerRequest from an exponential PDF with three potential event rates for each of the three minutes the online shoe store is dropping. \\
+Keep in mind that SneakerRequest events are exogenous, with a recurrence function established case-by-case for each of the Online Sneaker Store's three minutes drop durations. HandleSneakerRequest provides a class-level waitingTimeout function that implements a random variable with PDF for the waiting timeout event specified in the process model (10,20).
+
+\subsection{Process Design Model}
+These models can be expressed textually as event rule tables and visually as BPMN and DPMN process diagrams.\\
+The event types listed in the conceptual information model should be included in a conceptual process model, which should also specify the possible temporal sequences for events based on conditional and parallel branching. We may achieve this by specifying the causal regularity associated with each of the event types from the conceptual information model in the form of an event rule that specifies the state changes and subsequent events brought on by that type of event.\\
+An event rule is a conceptual expression of a causal regularity, and an event rule for each relevant type of event is the goal of a conceptual process model for simulation.
+By abstracting away from elements that are not design-relevant and perhaps adding some computational features, a conceptual process model can be transformed into a process design model, represented as a DPMN process diagram as illustrated below.\\
+A DPMN process design model essentially defines the admissible sequences of events and activities together with their dependencies and effects on objects, while its underlying OE class design model defines the types of objects, events and activities, together with the participation of objects in events and activities, including the resource roles of activities, as well as resource cardinality constraints, parallel participation constraints, alternative resources, and task priorities \cite{Wagner}. \\ 
+The frequency of exogenous events, the duration of an activity, and the most important resource management characteristics defined in the underlying OE class design model, such as resource roles (in particular, performer roles can be displayed in the form of Lanes) and resource cardinality constraints, can all be displayed in a DPMN process design model to improve it. \\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{An enriched process design model}
+    \caption{An enriched process design model for the Online Sneaker Shop}
+\end{figure}
+\FloatBarrier
+Such an enriched DPMN process design model includes all computational details needed for an implementation without a separate explicit OE class design model. \\
+A performer role name (such as sizeHandlers) and an object type name (such as SizeRequestHandler) designating its range are separated by a colon and used to define performer roles in Lanes. A resource cardinality limitation is indicated when the performer role name is followed by a multiplicity expression enclosed in brackets, as in sizeHandlers[2] (stating that exactly 2 sizeHandlers are required).\\
+The implicit performer role name is produced by lowercasing the performer type name when just a performer type preceded with a colon (such as: RequestSneakerHandler) is provided (as in requestHandler:RequestSneakerHandler).\\
+The notation for defining a non-performer resource role, such as size\textunderscore channels:SizeChannel, consists of a named object rectangle, such as the :size\textunderscore channels rectangle, attached to an activity rectangle by means of a connection line representing a resource link, such as the line between the HandleSizeRequest activity rectangle and the :size\textunderscore channels object rectangle in Figure 4. \\
+It should be noted that there is no feature in the model of Figure 4 that represents a resource pool. It is expected that the business company under analysis has a corresponding resource pool for each organizational role represented in the underlying OE class model. In order to ensure that the resource objects in each resource pool are instances of the corresponding resource role type, each resource role of an activity type is by default linked to a resource pool with the same (yet pluralized) name. \\
+For instance, a pool size\textunderscore channel is by default given to the resource role size\textunderscore channel for the HandleSizeRequest activity. The mechanisms in the pool size\textunderscore channels are instances of the size\textunderscore channel (resource) object type. The HandleSizeRequest resource role sizeHandler is also given access to a pool of sizeHandlers.  An OE simulator handles these default pool allocations, which are typically not visible in a DPMN diagram. 
+
+\subsection{Implementation with OESjs}
+
+DPMN is an open (non-proprietary) Discrete Event Simulation (DES) modeling language for making platform-independent simulation design models, which can be implemented with any particular DES platform, such as Arena, Simio, AnyLogic, etc. For our case of study, the JavaScript-based simulator OESjs-Core2 has been used. OESjs implements the Object Event Simulation (OES) paradigm, and, consequently, allows a straight-forward coding of OE class models and DPMN process models. The OESjs Core 2 simulator implements an architecture that extends the OESjs Core 1 simulator by adding support for activities, which may be resource-constrained. More information about Object Event Simulation and OESjs are available in \cite{Wagner_OESjs}. 
+
+\subsubsection{Implementing the Information Design model}
+In order to implement the OE class design model with OESjs-Core2, all of the object types, event types, and activity types defined in the model must be coded in JavaScript classes that extend the corresponding OESjs framework classes oBJECT, eVENT, and aCTIVITY. We start with the object type SneakerRequestHandler shown in the following diagram:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{SneakerRequestHandler}
+    \caption{SneakerRequestHandler diagram}
+\end{figure} 
+
+\FloatBarrier 
+
+The {\em SneakerRequestHandler} object class can be coded in the following way:
+
+\medskip
+\begin{lstlisting}[caption=SneakerRequestHandler]
+class RequestHandler extends oBJECT {
+  constructor({ id, name, status}) {
+    super( id, name);
+    this.status = status;
+  }
+}
+RequestHandler.labels = {"status":"st", "activityState":"act"};
+\end{lstlisting}
+
+All object classes inherit an id attribute and a name attribute from the pre-defined OES foundation class oBJECT. Since request handlers are resource objects, we need to define a status property having the pre-defined enumeration data type ResourceStatusEL as its range.
+The other object classes (SizeRequestHandler and CheckoutRequestHandler) are coded in the same way. \\
+Next, we implement the SneakerRequest event type, which is shown in the following diagram:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{SneakerRequest}
+    \caption{SneakerRequest diagram}
+\end{figure}
+
+\FloatBarrier
+
+The {\em SneakerRequest} event class can be coded in the following way:
+
+\medskip
+\begin{lstlisting}[caption=SneakerRequestHandler]
+class SneakerRequest extends eVENT {
+  constructor({occTime, delay}={}) {
+    super({occTime, delay});
+  }
+
+  createNextEvent() {
+    return new SneakerRequest({delay: SneakerRequest.recurrence()});
+  }
+
+  static recurrence() {
+    var cent = Math.floor(sim.time / 60);
+    return rand.exponential(SneakerRequest.arrivalRates[cent]);
+  }
+}
+
+SneakerRequest.successorNode = "HandleSneakerRequest";
+
+\end{lstlisting}
+
+The predefined OES foundation class eVENT provides the occTime and delay attributes, which are inherited by all event classes. Any event in OES can be produced with either a value for the attribute delay or a value for the attribute occTime, which stands for occurrence time. \\
+Finally, an activity type such as HandleSneakerRequest can be implemented in the following way:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{RequestHandler}
+    \caption{HandleSneakerRequest diagram}
+\end{figure}
+
+\FloatBarrier
+
+\medskip
+\begin{lstlisting}[caption=HandleSneakerRequest]
+class HandleSneakerRequest extends aCTIVITY {
+  constructor({id, startTime, duration, node}={}) {
+    super({id, startTime, duration, node});
+  }
+  static duration() {
+    return rand.uniform( 1, 4);  // durata dell'evento
+  }
+
+  static waitingTimeout() {
+    return rand.uniformInt(10, 20); // dopo quanto tempo si stancano di stare in coda
+  }
+}
+HandleSneakerRequest.resourceRoles = {
+  "requestHandler": {range: RequestHandler}
+}
+HandleSneakerRequest.PERFORMER = ["requestHandler"];
+HandleSneakerRequest.successorNode = "HandleSizeRequest";
+\end{lstlisting}
+
+The predefined OES foundation class aCTIVITY provides the attributes id, startTime, and duration, which are inherited by all activity classes. The duration() function, which is defined as a class-level ("static") function for the activity class, is called when an activity is formed as a JS object during a simulation run to determine the value of its duration attribute. \\
+Observe how a corresponding entry in the map-valued class-level property resourceRoles codes the resource role association between HandlerSneakerRequest and RequestHandler, which creates the resource reference property requestHandler::RequestHandler.
+
+\subsubsection{Implementing the Process Design Model}
+
+The following process design model specifies six types of events: sneaker request events, handler sneaker request waiting timeouts, lost order events, handle sneaker request activities, handle size request activities, handle checkout request activities:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Process_Design_Model}
+    \caption{Process Design Model diagram}
+\end{figure}
+
+\FloatBarrier
+
+A DPMN process design model can be decomposed into a set of event rule design models, one for each type of event specified in the design model. \\
+Since activities are composite events, we also have rules for them. These rules are triggered when an activity completes (corresponding activity end event).\\
+All events rules have been designed and implemented in the same way.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Event_Rule}
+    \caption{Event Rule diagram}
+ \end{figure}
+
+\FloatBarrier
+
+\medskip
+\begin{lstlisting}[caption=Event Rule]
+HandleSneakerRequest.successorNode = "HandleSizeRequest";
+\end{lstlisting}
+
+
+%------------------------------------------------
+
+\section{Results}
+
+Simulation have been run over three different scenarios:
+\begin{enumerate}
+\item Default scenario described above,
+\item Same architecture of the default scenario but with higher request due to a more coveted pair of sneakers,
+\item High request due to a more coveted pair of sneakers, but more resources given to the online shop.
+\end{enumerate}
+For all three scenario the number of sizes available were 60 for size 1, 20 for size 2 and 30 for size 3.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{Scenario1_Results}
+    \caption{Result from Scenario 1}
+ \end{figure}
+ \FloatBarrier
+ As shown in the figure above, with low number of request, the site can easily handle all of them without loosing any checkout due to impatient clients, without even going sold out and with a final average queue length of 1.33.
+ 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{Scenario2_Results}
+    \caption{Result from Scenario 2}
+ \end{figure}
+ \FloatBarrier
+In the second scenario we have way more requests but despite loosing 45 checkouts due to impatient customers the site still is able to have some stock left with an average final queue length of 57.
+ 
+\begin{figure}[h]
+   \centering
+   \includegraphics[width=1.0\textwidth]{Scenario3_Results}
+   \caption{Result from Scenario 3}
+\end{figure}
+ \FloatBarrier
+Adding more SneakerRequestHandler didn't seem the best idea as can be seen from the Scenario 3 simulation results. In fact, customers get stuck in picking the size which badly influence the initial queue leading to more lost checkouts.
+ 
+ 
+
+\section{Conclusion}
+
+Although BPMN is an effective tool for illustrating business processes, its scope is constrained and additional standards must be used to implement it or to include different kinds of activities. Decision Model and Notation is advised for decision flows. A data flow diagram is advised because, despite the fact that BPMN has standards for data objects, it does not account for every stage of the data lifecycle.\\
+By modifying the process diagram language for the goal of simulation-based modeling, where a process model must express a computationally full process specification, DPMN addresses the shortcomings of BPMN. Even though DPMN can retain a significant portion of BPMN's vocabulary, visual syntax, information semantics, and intuitive flowchart modeling style, it also needs to integrate the rigorous semantics offered by the event scheduling arrows of Event Graphs and the event rules of the Object Event Modeling and Simulation paradigm.\\
+In conclusion, the DPMN JavaScript Framework (OESjs) has also been used to demonstrate how effective it is in displaying extensive simulation results, even in simple case studies like the one proposed in this study.
+
+\section{Future Work}
+DPMN is an open (non-proprietary) DES modeling language for creating platform-independent simulation design models that may be implemented with any specific DES platform, like AnyLogic, as was previously stated. As a result, as part of future development, we might want to use AnyLogic to construct the Online Sneaker Shop business process model.\\
+Since AnyLogic does not support Activity-Based Discrete Event Simulation, but only Process Network simulations with "entities flowing through the system" we need to impose PN view on the Online Sneaker Shop business process. This requires to figure out what could be used as "entities" for being able to make a PN model \cite{Wagner}.
+%----------------------------------------------------------------------------------------
+%	REFERENCE LIST
+%----------------------------------------------------------------------------------------
+
+\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
+
+\bibitem{Gartner}Gartner. Business Process Management (BPM). Https://Www.Gartner.Com/. https://www.gartner.com/en/information-technology/glossary/business-process-management-bpm.
+
+\bibitem{BPMS}Lawton, G., Tucci, L. (2022, April 27). business process management software. SearchCIO. Retrieved October 19, 2022, from https://www.techtarget.com/searchcio/definition/Business-process-management-suite-BPMS.
+
+\bibitem{BPMN}Wright, G. (2022, April 27). Business Process Modeling Notation (BPMN). SearchCIO. Retrieved October 19, 2022, from https://www.techtarget.com/searchcio/definition/Business-Process-Modeling-Notation.
+
+\bibitem{Wagner}Wagner, G. (2022, June 8). Business Process Modeling and Simulation with DPMN. https://sim4edu.com/reading/bpms-dpmn/.
+
+\bibitem{Wagner_OESjs}Wagner, G. (2022b, June 8). Discrete Event Simulation Engineering: How to design discrete event simulations with DPMN and implement them with OESjs, Simio or AnyLogic (1st ed.). https://sim4edu.com/reading/des-engineering/.
+
+
+
+ 
+\end{thebibliography}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

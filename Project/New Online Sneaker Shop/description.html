@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-US" xml:lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+
+    <title>Make-and-Deliver-Pizza-AN-1 Simulation Model Description</title>
+
+    <meta content="width=device-width, initial-scale = 1.0" name="viewport" />
+
+    <meta content="en" http-equiv="Content-Language" />
+
+    <meta content="A simulation about a pizza service company that takes phone orders and then makes and delivers the ordered pizzas."
+          name="description" />
+
+    <link href="../../../css/description.css" rel="stylesheet" />
+  </head>
+
+  <body><div id="frontMatter"> <h1><span>Online Sneaker Shop Model
+  Description</span> </h1> <a href="index.html">Back to simulation</a></h1><p
+  id="copyright">© 2020 (<a
+  href="https://creativecommons.org/licenses/by/4.0/">CC BY</a>) Gerd Wagner,
+  Brandenburg University of Technology, Germany.</p>
+  
+  <p>A fresh new online shop has finally opened its gates for limited edition sneaker releases. HTTP requests arrive with a random recurrence rates during a sneaker release and the site manages to handles only a limited number of requests at the same time. Moreover, if the site has reached its maximum capacity of visitors per time, new clients enter a queue. Clients in a queue may grow impatient and hang up the queue without placing an order.
+    Then customers, in order to buy their dream pair of shoes, have to select the size and add them to the cart. If the requested size isn't available, customers are able to queue one more time and request a different size. Finally, if the sneakers are available, customers are able to complete the order. \\
+    Since sneaker drops are always used as a stress test for a site, the shop manager asked to keep track of the following key parameter indicator:
+  </p>
+  <ul>
+    <li>Number of lost orders,</li>
+    <li>Number of total checkouts,</li>
+    <li>AVG. queue length,</li>
+    <li>Number of lost orders for size unavailable.</li>
+  </ul> 
+  </div><details><summary>Conceptual Model</summary>
+    <p>An online sneakers shop has resource for <em>initial requests</em>, <em>size requests</em>, 
+      <em>size channels</em>, <em>checkout requests</em> and <em>checkout channels</em>, where channels are 
+      the number of requests for both size and checkout that the site can handle in one 
+      time. While, take request activities are performed without any limitation, 
+      size request and checkout request activities requires respectively a size 
+      channel and a checkout channel.</p></details>
+      
+  <details>
+  
+  <summary>Conceptual Information Model</summary><p>The
+  potentially relevant object types are:</p><ol> 
+      <li>online sneaker store,</li>
+
+      <li>customers,</li>
+
+      <li>orders,</li>
+
+      <li>sneakers,</li>
+
+      <li>requests,</li>
+
+      <li>size requests,</li>
+
+      <li>size channels,</li>
+
+      <li>checkout requests,</li>
+
+      <li>checkout channels.</li>
+    </ol><p>Potentially relevant types of events and activities are:</p><ol>
+      <li>sneakers requests coming in from customers,</li>
+
+      <li>sneaker request handling (an activity performed by the site without limitation),</li>
+
+      <li>size request handling (performed via size channels),</li>
+
+      <li>checkout request handling (performed via checkout channels).</li>
+    </ol>
+
+    </details>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <meta charset="UTF-8" />
+ <title>Online Sneaker Shop-AN-</title>
+ <meta content="width=device-width, initial-scale = 1.0" name="viewport" />
+ <link href="https://sim4edu.com/oesjs/core2/Make-and-Deliver-Pizza-AN-1" rel="canonical" />
+ <link href="../css/index.css" rel="stylesheet" />
+ <script src="../lib/ui-library-files.js"></script>
+ <script src="../framework/init-oes.js"></script>
+ <script src="simulation.js"></script>
+</head>
+<body>
+ <div><small>An <em><a href="https://gwagner57.github.io/oes/">Object Event Simulation (OES)</a></em> example model.</small></div>
+ <figure class="right"><img alt="Process Design Model" src="img/An enriched process design model.png" width="500" /></figure>
+ <h1>Online Sneaker Shop <a href="description.html">Read more...</a></h1>
+ <p id="copyright">© 2020 (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY</a>) Gerd Wagner,
+  Brandenburg University of Technology, Germany.</p>
+ <p>The Online Sneaker Shop <em>activity network</em> model consists of the object types "SneakerRequestHandler", "SizeRequestHandler", and "CheckoutRequestHandler"
+   the event type/node "SneakerRequest", and the activity types/nodes "HandleSneakerRequest", "HandleSizeRequest" and "HandleCheckoutRequest".
+   It's dynamics is described by the DPMN process diagram on the right.</p>
+
+ <h2 id="scenarioTitle">Default scenario</h2>
+ <p id="scenarioDescription">
+  The default scenario has 4 request handlers (with IDs 1&ndash;4), 6 size handlers (with IDs 11&ndash;16), 10 size channels, and 15 checkout channels.";
+  </p>
+  <p>For all three scenario the number of sizes available were 60 for size 1, 20 for size 2 and 30 for size 3. Stock numbers can be changed in <a href="simulation.js">sim.model.setupStatistics</a> .
+  </p>
+ <form id="run">
+  <div><label>Select scenario: <select name="selScen" onchange="onChangeOfScenSelect()"></select></label></div>
+  <div><button onclick="run()" type="button">Run</button>
+   <select name="selExp" onchange="onChangeOfExpSelect()"></select></div>
+  <div><label>Simulation log <input name="log" type="checkbox" /></label></div>
+  <div style="display: none"><label>Store exper. results <input name="storeExpRes" type="checkbox" /></label>
+   <button onclick="exportExperResults()" type="button">Export exper. results</button></div>
+ </form>
+ <table style="display: none">
+  <caption>Simulation Log</caption>
+  <thead>
+    <tr>
+      <th>Step</th><th>Time</th><th>Current Events</th><th>System State</th><th>Future Events</th>
+    </tr>
+  </thead>
+  <tbody id="simLog"></tbody>
+ </table>
+ <p id="simInfo"></p>
+ <table id="statisticsTbl">
+  <caption></caption>
+  <tbody></tbody>
+ </table>
+ <p id="execInfo"></p>
+ 
+ <script src="../framework/core2-ui-oes.js"></script>
+</html>
